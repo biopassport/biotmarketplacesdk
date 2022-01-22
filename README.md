@@ -24,7 +24,9 @@ DPHR과 그에 해당하는 데이터를 등록할 수 있습니다. 잠재적 �
 
 ## 2. 버전
 
-version 0.9 Beta
+- version 0.9 Beta
+- version 0.91 Beta
+  - API 문서 수정
 
 ## 3. 인증
 
@@ -35,14 +37,14 @@ DPHR Marketplace API는 HTTP [기본 인증](https://en.wikipedia.org/wiki/Basic
 ## 4. URI 구조
 
 ```
-https://marketplace.biopassport.com/rest/1
+https://marketplace.biopassport.io/rest/1
 ```
 
 URI 리소스를 표현할 때, 호스트 이름을 포함하지 않습니다.
 
     example
 
-    [X] https://marketplace.biopassport.com/rest/2
+    [X] https://marketplace.biopassport.io/rest/2
 
     [O] /rest/2
 
@@ -57,10 +59,13 @@ DPHR Marketplace API는 표준 HTTP 메서드를 사용합니다.
 ## 6. APIs
 
 ### 가입 신청 
-  신청 완료 후. 저희쪽 담당자가 심사 후 연락을 드립니다.
+신청 완료 후. 저희쪽 담당자가 심사 후 연락을 드립니다.
 
-`Request [Post] /rest/1/sign-up`
+#### Request
 
+`[Post] /rest/1/sign-up`
+
+##### Field
 ```
 {
   "email": string,
@@ -90,13 +95,21 @@ DPHR Marketplace API는 표준 HTTP 메서드를 사용합니다.
 | corpRegistNumber | 사업자 등록번호 | String |
 
 ### 인증 
-
-`인증 생성`
-
 가입신청 완료 후 사전에 받은 ID, API Key와 비밀번호를 이용해서 인증을 진행합니다. 
 
-`Request [Post] /rest/1/auth`
+#### Request
+`[Post] /rest/1/auth`
 
+##### Header
+```
+Authorization: Bearer access-token
+```
+
+| 헤더 | 설명 | 타입 |
+|----|------------|-----|
+| Authorization | 인증 정보 | String |
+
+##### Field
 ```
 {
   "id": string,
@@ -111,8 +124,9 @@ DPHR Marketplace API는 표준 HTTP 메서드를 사용합니다.
 | apiKey | api key | String |
 | password | 비밀 번호 | String |
 
-`Response`
+#### Response
 
+##### Field
 ```
 {
   "success": boolean,
@@ -125,54 +139,100 @@ DPHR Marketplace API는 표준 HTTP 메서드를 사용합니다.
 | success | 인증 성공 여부 | boolean |
 | accessToken | access token | String |
 
-### IP 조회 
+### IP 조회`인증 필요`
+최소 1개, 최대 3개 등록 가능합니다.
 
-`인증 필요`
+#### Request
+`[Get] /rest/1/ips`
 
-  최소 1개, 최대 3개 등록 가능합니다.
+##### Header
+```
+Authorization: Bearer access-token
+```
 
-`Response [Get] /rest/1/ips` 
+| 헤더 | 설명 | 타입 |
+|----|------------|-----|
+| Authorization | 인증 정보 | String |
 
+#### Response
+
+##### Field
 ```
 {
-  "ips": [
-    {
-    "ip": string
-    }, ...
-  ]
+  "ips": [...]
 }
 ```
 
 | 필드 | 설명 | 타입 |
 |----|------------|-----|
-| ips | 아이피 리스트 | List |
+| ips | 아이피 리스트 | List\<String\> |
 
-| 필드 | 설명 | 타입 |
+### IP 등록 `인증 필요`
+
+#### Request
+`[Post] /rest/1/ip`
+
+##### Header
+```
+Authorization: Bearer access-token
+```
+
+| 헤더 | 설명 | 타입 |
 |----|------------|-----|
-| ip | 아이피 | String |
+| Authorization | 인증 정보 | String |
 
-### IP 등록, 삭제 `인증 필요`
-
-`Request [Post] /rest/1/ip`
-
+##### Field
 ```
 {
   "ip": string
 }
 ```
 
-`Request [Delete] /rest/1/ip`
+| 필드 | 설명 | 타입 |
+|----|------------|-----|
+| ip | 아이피 | String |
+
+### IP 삭제 `인증 필요`
+
+#### Request
+`[Delete] /rest/1/ip`
+
+##### Header
+```
+Authorization: Bearer access-token
+```
+
+| 헤더 | 설명 | 타입 |
+|----|------------|-----|
+| Authorization | 인증 정보 | String |
+
+##### Field
+```
+{
+  "ip": string
+}
+```
 
 | 필드 | 설명 | 타입 |
 |----|------------|-----|
 | ip | 아이피 | String |
 
-### 상품 목록 조회 
+### 상품 목록 조회 `인증 필요`
 
-`인증 필요`
+#### Request
+`[Get] /rest/1/products`
 
-`Request [Get] /rest/1/products`
+##### Header
+```
+Authorization: Bearer access-token
+```
 
+| 헤더 | 설명 | 타입 |
+|----|------------|-----|
+| Authorization | 인증 정보 | String |
+
+#### Response
+##### Field
 ```
 {
   "products": [
@@ -199,14 +259,22 @@ DPHR Marketplace API는 표준 HTTP 메서드를 사용합니다.
 | price | 상품 가격 | BigDecimal |
 | currency | 통화 | String |
 
-### 상품 주문
+### 상품 주문 `인증 필요`
+구매신청을 하면 파일을 제공합니다.
 
-`인증 필요`
+#### Request
+`[Post] /rest/1/product`
 
-  구매신청을 하면 다운로드할 수 있는 정보를 저희쪽 담당자가 제공합니다.
+##### Header
+```
+Authorization: Bearer access-token
+```
 
-`Request [Post] /rest/1/product`
+| 헤더 | 설명 | 타입 |
+|----|------------|-----|
+| Authorization | 인증 정보 | String |
 
+##### Field
 ```
 {
     "code": string
@@ -217,11 +285,13 @@ DPHR Marketplace API는 표준 HTTP 메서드를 사용합니다.
 |----|------------|-----|
 | code | 상품 코드 | String |
 
-`Response`
+#### Response
 
+##### Field
 ```
 {
     "price": number,
+    "currency": string,
     "virtualWalletAddress": string
 }
 ```
@@ -229,6 +299,7 @@ DPHR Marketplace API는 표준 HTTP 메서드를 사용합니다.
 | 필드 | 설명 | 타입 |
 |----|------------|-----|
 | price | 상품 가격 | BigDecimal |
+| currency | 통화 | String |
 | virtualWalletAddress | 입금 가상계좌 주소 | String |
 
 ## 7. 상품 종류
