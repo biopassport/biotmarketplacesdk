@@ -26,16 +26,16 @@ class MarketplaceApi {
         this.accessToken = authRes.accessToken
     }
 
-    fun listIpAddresses(): IpsRes {
-        return exchange("$API_URL/ips", HttpMethod.GET, IpsRes::class.java, accessToken)
+    fun listCidrs(): CidrsRes {
+        return exchange("$API_URL/cidrs", HttpMethod.GET, IpsRes::class.java, accessToken)
     }
 
-    fun addIpAddress(req: IpInfo) {
-        exchange("$API_URL/ip", HttpMethod.POST, Object::class.java, accessToken, req)
+    fun addCidr(req: CidrInfo) {
+        exchange("$API_URL/cidr", HttpMethod.POST, Object::class.java, accessToken, req)
     }
 
-    fun deleteIpAddress(req: IpInfo) {
-        exchange("$API_URL/ip", HttpMethod.DELETE, Object::class.java, accessToken, req)
+    fun deleteCidr(req: CidrInfo) {
+        exchange("$API_URL/cidr", HttpMethod.DELETE, Object::class.java, accessToken, req)
     }
 
     fun listProducts(): ProductsRes {

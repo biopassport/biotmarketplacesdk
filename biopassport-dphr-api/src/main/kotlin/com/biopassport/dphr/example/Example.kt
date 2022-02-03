@@ -29,15 +29,15 @@ fun main() {
     val authReq = AuthReq("test corp id", "test api key string", "test password")
     marketplaceApi.auth(authReq)
 
-    // 인증을 완료한 후 등록된 ip 목록을 조회합니다.
-    val listIpAddresses = marketplaceApi.listIpAddresses()
-    // 등록된 ip 목록이 반환됩니다.
-    println(listIpAddresses)
+    // 인증을 완료한 후 등록된 CIDR 목록을 조회합니다.
+    val listCidrs = marketplaceApi.listCidrs()
+    // 등록된 CIDR 목록이 반환됩니다.
+    println(listCidrs)
 
-    // 인증을 완료한 후 ip 목록을 등록/ 삭제합니다.
-    val ipInfo = IpInfo("0.0.0.0")
-    marketplaceApi.addIpAddress(ipInfo)
-    marketplaceApi.deleteIpAddress(ipInfo)
+    // 인증을 완료한 후 CIDR 목록을 등록/ 삭제합니다.
+    val cidrInfo = CidrInfo("0.0.0.0/0")
+    marketplaceApi.addCidr(cidrInfo)
+    marketplaceApi.deleteCidr(cidrInfo)
 
     // 인증을 완료한 후 상품 목록 조회
     val listProducts = marketplaceApi.listProducts()

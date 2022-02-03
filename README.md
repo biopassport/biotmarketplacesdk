@@ -27,6 +27,8 @@ DPHR과 그에 해당하는 데이터를 등록할 수 있습니다. 잠재적 �
 - version 0.9 Beta
 - version 0.91 Beta
   - API 문서 수정
+- version 0.95 Beta
+  - API ACL 방식 IP -> CIDR로 변경
 
 ## 3. 인증
 
@@ -139,11 +141,11 @@ Authorization: Bearer access-token
 | success | 인증 성공 여부 | boolean |
 | accessToken | access token | String |
 
-### IP 조회`인증 필요`
+### 허용된 CIDR 조회 `인증 필요`
 최소 1개, 최대 3개 등록 가능합니다.
 
 #### Request
-`[Get] /rest/1/ips`
+`[Get] /rest/1/cidrs`
 
 ##### Header
 ```
@@ -159,18 +161,18 @@ Authorization: Bearer access-token
 ##### Field
 ```
 {
-  "ips": [...]
+  "cidrs": [...]
 }
 ```
 
 | 필드 | 설명 | 타입 |
 |----|------------|-----|
-| ips | 아이피 리스트 | List\<String\> |
+| cidrs | CIDR 리스트 | List\<String\> |
 
-### IP 등록 `인증 필요`
+### CIDR 등록 `인증 필요`
 
 #### Request
-`[Post] /rest/1/ip`
+`[Post] /rest/1/cidr`
 
 ##### Header
 ```
@@ -184,18 +186,18 @@ Authorization: Bearer access-token
 ##### Field
 ```
 {
-  "ip": string
+  "cidr": string
 }
 ```
 
 | 필드 | 설명 | 타입 |
 |----|------------|-----|
-| ip | 아이피 | String |
+| cidr | CIDR | String |
 
-### IP 삭제 `인증 필요`
+### CIDR 삭제 `인증 필요`
 
 #### Request
-`[Delete] /rest/1/ip`
+`[Delete] /rest/1/cidr`
 
 ##### Header
 ```
@@ -209,13 +211,13 @@ Authorization: Bearer access-token
 ##### Field
 ```
 {
-  "ip": string
+  "cidr": string
 }
 ```
 
 | 필드 | 설명 | 타입 |
 |----|------------|-----|
-| ip | 아이피 | String |
+| cidr | CIDR | String |
 
 ### 상품 목록 조회 `인증 필요`
 

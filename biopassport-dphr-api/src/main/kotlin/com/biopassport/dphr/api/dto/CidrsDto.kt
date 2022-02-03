@@ -16,12 +16,12 @@
 
 package com.biopassport.dphr.api.dto
 
-/** 아이피 수정, 삭제, 등록 */
-data class IpInfo(
-    val ip: String
+/** CIDR 수정, 삭제, 등록 */
+data class CidrInfo(
+    val cidr: String
 )
 
-/** 아이피 리스트 **/
-data class IpsRes(
-    val ips: List<String>
+/** CIDR 리스트 **/
+data class CidrsRes(
+    val cidrs: List<String>
 )
