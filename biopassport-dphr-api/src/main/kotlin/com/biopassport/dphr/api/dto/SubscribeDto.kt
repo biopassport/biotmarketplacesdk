@@ -16,24 +16,32 @@
 
 package com.biopassport.dphr.api.dto
 
-import java.math.BigDecimal
-
-/** 전체 상품 목록 */
-data class ProductsRes(
-    val products: List<Product>
+/** 구독중인 상품 조회 응답 */
+data class SubscribedRes(
+    val subscriptions: List<SubscribedInfo>
 )
 
-data class Product(
-    /** 상품 코드 */
+/** 구독중인 상품 정보 */
+data class SubscribedInfo(
+    /** 상품 코드 **/
     val code: String,
-    /** 상품 명 */
-    val name: String,
-    /** 상품 설명 */
-    val description: String,
+    /** 구독 일시 **/
+    val subscribedAt: OffsetDateTime,
+    /** 구독 횟수 **/
+    val subscriptionCount: Int
+)
+
+/** 상품 구독 요청 **/
+data class SubscribeReq(
+    val code: String
+)
+
+/** 상품 구독 응답 **/
+data class SubscribeRes(
     /** 상품 가격 */
     val price: BigDecimal,
-    /** 구독 가격 */
-    val subscriptionPrice: BigDecimal,
-    /** 통화 */
-    val currency: String
+    /** 통화 **/
+    val currency: String,
+    /** 입금 가상계좌 주소 */
+    val virtualWalletAddress: String
 )

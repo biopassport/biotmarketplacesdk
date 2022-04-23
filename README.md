@@ -29,6 +29,8 @@ DPHR과 그에 해당하는 데이터를 등록할 수 있습니다. 잠재적 �
   - API 문서 수정
 - version 0.95 Beta
   - API ACL 방식 IP -> CIDR로 변경
+- version 0.96 Beta
+  - 상품 구독 추가
 
 ## 3. 인증
 
@@ -243,6 +245,7 @@ Authorization: Bearer access-token
       "name": string,
       "description": string,
       "price": number,
+      "subscriptionPrice": number,
       "currency": string
     }, ...
    ]
@@ -259,6 +262,7 @@ Authorization: Bearer access-token
 | name | 상품 명 | String |
 | description | 상품 설명 | String |
 | price | 상품 가격 | BigDecimal |
+| subscriptionPrice | 구독 가격 | BigDecimal |
 | currency | 통화 | String |
 
 ### 상품 주문 `인증 필요`
@@ -266,6 +270,86 @@ Authorization: Bearer access-token
 
 #### Request
 `[Post] /rest/1/product`
+
+##### Header
+```
+Authorization: Bearer access-token
+```
+
+| 헤더 | 설명 | 타입 |
+|----|------------|-----|
+| Authorization | 인증 정보 | String |
+
+##### Field
+```
+{
+    "code": string
+}
+```
+
+| 필드 | 설명 | 타입 |
+|----|------------|-----|
+| code | 상품 코드 | String |
+
+#### Response
+
+##### Field
+```
+{
+    "price": number,
+    "currency": string,
+    "virtualWalletAddress": string
+}
+```
+
+| 필드 | 설명 | 타입 |
+|----|------------|-----|
+| price | 상품 가격 | BigDecimal |
+| currency | 통화 | String |
+| virtualWalletAddress | 입금 가상계좌 주소 | String |
+
+### 구독중인 상품 조회 `인증 필요`
+구독중인 상품을 조회합니다.
+
+#### Request
+`[Get] /rest/1/subscribe-product`
+
+##### Header
+```
+Authorization: Bearer access-token
+```
+
+| 헤더 | 설명 | 타입 |
+|----|------------|-----|
+| Authorization | 인증 정보 | String |
+
+#### Response
+
+##### Field
+```
+{
+  "subscriptions: [
+    {
+      "code": string,
+      "subscribedAt": number,
+      "subscriptionCount": number
+    }, ...
+  ]
+}
+```
+
+| 필드 | 설명 | 타입 |
+|----|------------|-----|
+| code | 상품 코드 | String |
+| subscribedAt | 구독 일시 | OffsetDatetime |
+| subscriptionCount | 구독 횟수 | Int |
+
+
+### 상품 구독 `인증 필요`
+구독신청을 하면 매 주 월요일마다 파일을 제공합니다.
+
+#### Request
+`[Post] /rest/1/subscribe-product`
 
 ##### Header
 ```

@@ -42,6 +42,14 @@ class MarketplaceApi {
         return exchange("$API_URL/products", HttpMethod.GET, ProductsRes::class.java, accessToken)
     }
 
+    fun listSubscriptions(): SubscribedRes {
+        return exchange("$API_URL/subscribe-product", HttpMethod.GET, SubscribedRes::class.java, accessToken)
+    }
+
+    fun subscribeProduct(req: SubscribeReq): SubscribeRes {
+        return exchange("$API_URL/subscribe-product", HttpMethod.POST, SubscribeRes::class.java, accessToken)
+    }
+
     fun orderProduct(req: OrderReq): OrderRes {
         return exchange(
             "$API_URL/order-product",

@@ -26,6 +26,8 @@ data class OrderReq(
 data class OrderRes(
     /** 상품 가격 */
     val price: BigDecimal,
+    /** 통화 **/
+    val currency: String,
     /** 입금 가상계좌 주소 */
     val virtualWalletAddress: String
 )

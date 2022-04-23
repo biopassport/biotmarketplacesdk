@@ -45,9 +45,16 @@ fun main() {
     println(listProducts)
 
     // 인증을 완료한 후 상품 주문
-    val orderReq = OrderReq("product-codde-A")
+    val orderReq = OrderReq("product-code-A")
     val orderProduct = marketplaceApi.orderProduct(orderReq)
     // 가격과 입금 가상계좌 주소가 반환됩니다.
     println(orderProduct)
     // 주문이 완료되면 저희쪽 담당자가 확인 후 연락을 드립니다.
+
+    // 인증을 완료한 후 상품 구독
+    val subscribeReq = SubscribeReq("product-code-A")
+    val subscribeRes = marketplaceApi.subscribeProduct(subscribeReq)
+    // 가격과 입금 가상계좌 주소가 반환됩니다.
+    println(subscribeRes)
+    // 구독이 완료되면 저희쪽 담당자가 확인 후 연락을 드립니다.
 }
