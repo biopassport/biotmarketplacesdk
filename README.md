@@ -1,7 +1,7 @@
 # BIOT DPHR Marketplace SDK
 
-![kotlin](https://img.shields.io/badge/kotlin-1.5.31-orange)
-![spring-boot](https://img.shields.io/badge/spring--boot-2.5.5-brightgreen)
+![kotlin](https://img.shields.io/badge/kotlin-1.6.21-orange)
+![spring-boot](https://img.shields.io/badge/spring--boot-2.7.0-brightgreen)
 
 ## Index
 
@@ -33,6 +33,8 @@ DPHR과 그에 해당하는 데이터를 등록할 수 있습니다. 잠재적 �
   - 상품 구독 추가
 - version 0.97 Beta
   - API 에러 코드 추가
+- version 0.99 Beta
+  - Kotlin, Spring Boot 버전 업그레이드
 
 ## 3. 인증
 
