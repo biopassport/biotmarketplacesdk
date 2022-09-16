@@ -16,18 +16,14 @@
 
 package com.biopassport.dphr.api.dto
 
-/** 인증 요청 */
-data class AuthReq(
-    val id: String,
+/** AccessToken 갱신 요청 */
+data class RefreshAccessTokenReq(
     val apiKey: String,
-    val password: String
+    val accessToken: String,
+    val refreshToken: String
 )
 
-data class AuthRes(
-    /** 인증 성공 여부 */
-    val success: Boolean,
+data class RefreshAccessTokenRes(
     /** access token */
-    val accessToken: String,
-    /** refresh token */
-    val refreshToken: String
+    val accessToken: String
 )

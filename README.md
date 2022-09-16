@@ -35,24 +35,27 @@ DPHR과 그에 해당하는 데이터를 등록할 수 있습니다. 잠재적 �
   - API 에러 코드 추가
 - version 0.99 Beta
   - Kotlin, Spring Boot 버전 업그레이드
+- version 1.0
+  - 인증 응답 변경
+  - AccessToken 갱신 API 추가
 
 ## 3. 인증
 
-DPHR Marketplace API는 HTTP [기본 인증](https://en.wikipedia.org/wiki/Basic_access_authentication/) 을 사용합니다.
+DPHR Marketplace는 HTTP [기본 인증](https://en.wikipedia.org/wiki/Basic_access_authentication/) 을 통해 AccessToken을 얻은 후, Token 기반 인증으로 API를 사용하실 수 있습니다. 
 
-가입된 회사들이 사전에 받은 ID, API Key와 비밀번호를 이용해서 인증 키 값을 받습니다.
+가입된 회사들은 사전에 받은 API Endpoint, ID, API Key와 비밀번호를 이용해서 인증 키 값을 받습니다.
 
 ## 4. URI 구조
 
 ```
-https://marketplace.biopassport.io/rest/1
+https://*****.biopassport.io/rest/1
 ```
 
 URI 리소스를 표현할 때, 호스트 이름을 포함하지 않습니다.
 
     example
 
-    [X] https://marketplace.biopassport.io/rest/2
+    [X] https://*****.biopassport.io/rest/2
 
     [O] /rest/2
 
@@ -104,6 +107,7 @@ DPHR Marketplace API는 표준 HTTP 메서드를 사용합니다.
 
 ### 인증 
 가입신청 완료 후 사전에 받은 ID, API Key와 비밀번호를 이용해서 인증을 진행합니다. 
+Refresh Token은 1달간 유효합니다.
 
 #### Request
 `[Post] /rest/1/auth`
@@ -138,7 +142,8 @@ Authorization: Bearer access-token
 ```
 {
   "success": boolean,
-  "accessToken": string
+  "accessToken": string,
+  "refreshToken": string
 }
 ```
 
@@ -146,6 +151,50 @@ Authorization: Bearer access-token
 |----|------------|-----|
 | success | 인증 성공 여부 | boolean |
 | accessToken | access token | String |
+| refreshToken | refresh token | String |
+
+### 토큰 갱신
+RefreshToken을 사용하여 AccessToken을 갱신합니다.
+
+#### Request
+`[Post] /rest/1/refresh-access-token`
+
+##### Header
+```
+Authorization: Bearer access-token
+```
+
+| 헤더 | 설명 | 타입 |
+|----|------------|-----|
+| Authorization | 인증 정보 | String |
+
+##### Field
+```
+{
+  "apiKey": string,
+  "accessToken": string,
+  "refreshToken": string,
+}
+```
+
+| 필드 | 설명 | 타입 |
+|----|------------|-----|
+| apiKey | api key | String |
+| accessToken | 만료된 access token | String |
+| refreshToken | refresh token | String |
+
+#### Response
+
+##### Field
+```
+{
+  "accessToken": string
+}
+```
+
+| 필드 | 설명 | 타입 |
+|----|------------|-----|
+| accessToken | 갱신 된 access token | String |
 
 ### 허용된 CIDR 조회 `인증 필요`
 최소 1개, 최대 3개 등록 가능합니다.

@@ -26,6 +26,10 @@ class MarketplaceApi {
         this.accessToken = authRes.accessToken
     }
 
+    fun refreshAccessToken(req: RefreshAccessTokenReq): RefreshAccessTokenRes {
+        return exchange("$API_URL/refresh-access-token", HttpMethod.POST, RefreshAccessTokenRes::class.java, req = req)
+    }
+
     fun listCidrs(): CidrsRes {
         return exchange("$API_URL/cidrs", HttpMethod.GET, IpsRes::class.java, accessToken)
     }
@@ -94,7 +98,7 @@ class MarketplaceApi {
         val restTemplate = RestTemplate()
         val objectMapper = ObjectMapper()
 
-        const val API_URL = "https://demo.biopassport.io/rest/1"
+        const val API_URL = "https://*****.biopassport.io/rest/1"
         const val AUTH_FAILED = "인증에 실패했습니다. id, api key, password를 확인하십시오."
     }
 }

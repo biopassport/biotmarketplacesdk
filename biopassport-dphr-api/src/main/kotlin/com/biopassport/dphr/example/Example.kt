@@ -29,6 +29,13 @@ fun main() {
     val authReq = AuthReq("test corp id", "test api key string", "test password")
     marketplaceApi.auth(authReq)
 
+    // RefreshToken을 통해 AccessToken을 갱신합니다.
+    val refreshAccessTokenReq = RefreshAccessTokenReq("test api key string", "test access token", "test refresh token")
+    val refreshAccessTokenRes = marketplaceApi.refreshAccessToken(refreshAccessTokenReq)
+
+    // 갱신된 AccessToken을 반환합니다.
+    println(refreshAccessTokenReq)
+
     // 인증을 완료한 후 등록된 CIDR 목록을 조회합니다.
     val listCidrs = marketplaceApi.listCidrs()
     // 등록된 CIDR 목록이 반환됩니다.
