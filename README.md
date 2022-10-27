@@ -38,7 +38,9 @@ DPHR과 그에 해당하는 데이터를 등록할 수 있습니다. 잠재적 �
 - version 1.0
   - 인증 응답 변경
   - AccessToken 갱신 API 추가
-
+- version 1.1
+  - 갱신 관련 설명 추가
+  - 에러 코드 추가
 ## 3. 인증
 
 DPHR Marketplace는 HTTP [기본 인증](https://en.wikipedia.org/wiki/Basic_access_authentication/) 을 통해 AccessToken을 얻은 후, Token 기반 인증으로 API를 사용하실 수 있습니다. 
@@ -108,6 +110,7 @@ DPHR Marketplace API는 표준 HTTP 메서드를 사용합니다.
 ### 인증 
 가입신청 완료 후 사전에 받은 ID, API Key와 비밀번호를 이용해서 인증을 진행합니다. 
 Refresh Token은 1달간 유효합니다.
+Access Token은 1주일간 유요합니다.
 
 #### Request
 `[Post] /rest/1/auth`
@@ -158,15 +161,6 @@ RefreshToken을 사용하여 AccessToken을 갱신합니다.
 
 #### Request
 `[Post] /rest/1/refresh-access-token`
-
-##### Header
-```
-Authorization: Bearer access-token
-```
-
-| 헤더 | 설명 | 타입 |
-|----|------------|-----|
-| Authorization | 인증 정보 | String |
 
 ##### Field
 ```
@@ -493,6 +487,7 @@ Authorization: Bearer access-token
 | 에러 코드 | 설명 |
 |----| ----------------------------------------------------------------------|
 | 1100 | 잘못된 인증 정보 |
+| 1101 | 잘못된 갱신 정보 (만료된 액세스 토큰, 갱신 토큰, API KEY 가 맞아야 됨) |
 #### CIDR 등록
 | 에러 코드 | 설명 |
 |----| ----------------------------------------------------------------------|
