@@ -35,10 +35,10 @@ DPHR과 그에 해당하는 데이터를 등록할 수 있습니다. 잠재적 �
   - API 에러 코드 추가
 - version 0.99 Beta
   - Kotlin, Spring Boot 버전 업그레이드
-- version 1.0
+- version 1.0 Beta
   - 인증 응답 변경
   - AccessToken 갱신 API 추가
-- version 1.1
+- version 1.1 Beta
   - 갱신 관련 설명 추가
   - 에러 코드 추가
 ## 3. 인증
